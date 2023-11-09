@@ -2,15 +2,31 @@ pipeline {
     agent any
 
     stages {
-        stage('inicio'){
+        stage('Checkout Source'){
             steps {
-                echo 'inicio'
+                git url:'https://github.com/lholanda/pedelogo-catalogo.git', branch:'master'
             }
         }
-        stage('cria-arquivo'){
+        stage('Build Image'){
             steps {
-                echo "arquivo criado" 
+                script {
+                    dockerapp = docker.build("lholanda/api-produto:${env.BUILD_ID}",
+                    '-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
+                }    
+            }
+        }
+
+        stage('Push Image'){
+            steps {
+                script{
+                    docker.wihRegistry('htts://registry.hb.docker.com', 'dockerhub') {
+                        dockerapp.push('latest')
+                        dockerapp.push("${env.BUILD_ID}")
+                    }
+                }
             }
         }
     }
+
+
 }

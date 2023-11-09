@@ -49,7 +49,7 @@ Mongo__Port => Porta do MongoDB
     cd ~/projects/jornadadevops/jornada/jenkins/app/pedelogo-catalogo$
 
     * comando para criar Imagem
-    docker build -t lholanda/pedelogo-catalogo:v4.0.0 -f ./src/PedeLogo.Catalogo.Api/Dockerfile .
+    docker build -t lholanda/api-produto:versao-teste -f ./src/PedeLogo.Catalogo.Api/Dockerfile .
     
     cd ~/projects/jornadadevops/jornada/jenkins/app/pedelogo-catalogo$
     * comando para criar Imagem
