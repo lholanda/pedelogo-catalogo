@@ -9,7 +9,7 @@ pipeline {
         }
         stage('cria-arquivo'){
             steps {
-                echo "arquivo" >> arquivo.txt
+                echo "arquivo criado" 
             }
         }
     }
