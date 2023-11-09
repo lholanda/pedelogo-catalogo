@@ -2,9 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('teste'){
+        stage('inicio'){
             steps {
-                echo 'My pipeline test 1'
+                echo 'inicio'
+            }
+        }
+        stage('cria-arquivo'){
+            steps {
+                echo "arquivo" >> arquivo.txt
             }
         }
     }
