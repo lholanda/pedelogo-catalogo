@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  selector:
+    matchLabels:
+      app: api
+  # pod definition
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: api
+        image: lholanda/api-produto:versao-teste
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+          name: http 
+        - containerPort: 443
+          name: https
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: api-configmap
+            # vai puxar da api-configmap : Mongo__DataBase, Mongo__Host e Mongo__Port  
+        env: 
+          - name: Mongo__User 
+            valueFrom:
+                #configMapKeyRef:
+                secretKeyRef:
+                  key: MONGO_INITDB_ROOT_USERNAME
+                  #name: mongodb-configmap
+                  name: mongodb-secret
+          - name: Mongo_Password 
+            valueFrom:
+                #configMapKeyRef:
+                secretKeyRef:
+                  key: MONGO_INITDB_ROOT_PASSWORD
+                  #name: mongodb-configmap
+                  name: mongodb-secret
