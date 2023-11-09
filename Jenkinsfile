@@ -19,7 +19,7 @@ pipeline {
         stage('Push Image'){
             steps {
                 script{
-                    docker.wihRegistry('htts://registry.hb.docker.com', 'dockerhub') {
+                    docker.wihRegistry('htts://registry.hub.docker.com', 'dockerhub') {
                         dockerapp.push('latest')
                         dockerapp.push("${env.BUILD_ID}")
                     }
