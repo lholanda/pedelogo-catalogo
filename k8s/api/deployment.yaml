@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: lholanda/api-produto:versao-teste
+        image: lholanda/api-produto:{{tag}}
         resources:
           limits:
             memory: "128Mi"
