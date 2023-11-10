@@ -29,7 +29,7 @@ pipeline {
         }
 
         stage('Deploy Kubernetes'){
-                        agent {
+            agent {
                 kubernetes {
                     cloud 'kubernetes'
                 }
@@ -41,7 +41,7 @@ pipeline {
                 script{
                     sh 'sed -i "s/{{tag}}/$tag_version/g" ./k8s/api/deployment.yaml'
                     sh 'cat ./k8s/api/deployment.yaml'
-                    KubernetesDeploy(configs: "**/k8s/**", kubeconfigId : 'kubeconfig')
+                    KubernetesDeploy(configs: '**/k8s/**', kubeconfigId : 'kubeconfig')
                     }
                 }
             }
