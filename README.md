@@ -22,10 +22,14 @@ Mongo__Port => Porta do MongoDB
 
 ### ------------ Configuracao do Jenkins
 
-1) credenciais
-    dockerhub e kube
-2) Security -
+###### DOCKER INSTALATION ########
+curl -fsSl https://get.docker.com | bash 
+usermod -aG docker jenkins
+
+1) Security -
     agents - random - para o k8s consiga funcionar 
+2) credenciais
+    dockerhub e kube
 3) Clouds
     Credentials
     Jenkins URL http://<IP>:8080
@@ -40,13 +44,14 @@ Mongo__Port => Porta do MongoDB
                 Name: jnlp
                 Docker image
                     jenkins/jnlp-slave:latest
-                    Command to run : 
+                    working directory - apaga
+                    Command to run - apaga
                     [ x ] Allocate pseudo-TTY
 4) Projeto para subir
     fork do projeto ou projeto que queira subir
 
     * para testar:
-    cd ~/projects/jornadadevops/jornada/jenkins/app/pedelogo-catalogo$
+    cd ~/projects/jornadadevops/jornada/jenkins/app/pedelogo-catalogo
 
     * comando para criar Imagem
     docker build -t lholanda/api-produto:versao-teste -f ./src/PedeLogo.Catalogo.Api/Dockerfile .
