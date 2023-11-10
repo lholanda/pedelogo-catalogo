@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout Source'){
+        stage('Git Checkout to Master'){
             steps {
                 git url:'https://github.com/lholanda/pedelogo-catalogo.git', branch:'master'
             }
