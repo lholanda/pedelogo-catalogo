@@ -29,12 +29,12 @@ pipeline {
         }
 
         stage('Deploy Kubernetes'){
-            agent {
+                        agent {
                 kubernetes {
                     cloud 'kubernetes'
                 }
             }
-            enviroment {
+            environment {
                 tag_version= "v${env.BUILD_ID}"
             }
             steps {
