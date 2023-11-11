@@ -16,13 +16,25 @@ pipeline{
             }
         }
 
-        stage('Push Image'){
+        stage('entrando na Etapa de Docker Registry....'){
             steps {
                 script {
-                    echo 'My pipeline test 1'
+                    echo 'Quase lá....'
                 }
             }
         }
+
+        stage('Push Image'){
+            steps {
+                script {
+                   docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+                      dockerapp.push('latest')
+                      dockerapp.push("v${env.BUILD_ID}")
+                   }
+                }
+            }
+        }
+
 
     }
 }
