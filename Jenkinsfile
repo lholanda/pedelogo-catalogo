@@ -28,9 +28,12 @@ pipeline{
 
         /* CD */
         stage('Deploy Kubernetes'){
-            agent kubernetes {
-                cloud 'kubernetes'
+            agent {
+                kubernetes {
+                    cloud 'kubernetes'
+                }
             }
+            
             enviroment {
                 tag_version = "lh${env.BUILD_ID}"
             }
