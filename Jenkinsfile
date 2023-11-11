@@ -11,7 +11,7 @@ pipeline{
         stage('Build Image'){
             steps {
                script {
-                    dockerapp = docker.build("lholanda/pedelogo-catalogo-jenkins:lh${env.BUILD_ID}",'-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
+                    dockerapp = docker.build("lholanda/api-produto:lh${env.BUILD_ID}",'-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                } 
             }
         }
