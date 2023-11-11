@@ -37,18 +37,24 @@ pipeline{
             environment {
                 tag_version = "lh${env.BUILD_ID}"
             }
-            
+
             steps {
                 
                 sh 'sed -i "s/{{tag}}/$tag_version/g" ./k8s/api/deployment.yaml'
                 sh 'cat ./k8s/api/deployment.yaml'
-                withKubeConfig([credentialsId:'kube'
-                               ]){
-                    sh './kubectl apply -f ./k8s/ -R'
-                }
+                
                 
             }
         }
 
+    }
+
+    post {
+        success {
+            echo 'Deployment successful!'
+        }
+        failure {
+            echo 'Deployment failed!'
+        }
     }
 }

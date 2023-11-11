@@ -151,3 +151,28 @@ stage('Deploy Kubernetes'){
 /* CD */
 
 /*kuberneteDeploy(configs: '**/k8s/**', kubeconfigId: 'kubeconfig')*/
+
+
+
+stage('Deploy Kubernetes'){
+            agent {
+                kubernetes {
+                    cloud 'kubernetes'
+                }
+            }
+
+            environment {
+                tag_version = "lh${env.BUILD_ID}"
+            }
+
+            steps {
+                
+                sh 'sed -i "s/{{tag}}/$tag_version/g" ./k8s/api/deployment.yaml'
+                sh 'cat ./k8s/api/deployment.yaml'
+                withKubeConfig([credentialsId:'kube'
+                               ]){
+                    sh './kubectl apply -f ./k8s/ -R'
+                }
+                
+            }
+        }
