@@ -28,6 +28,9 @@ pipeline{
 
         /* CD */
         stage('Deploy Kubernetes'){
+            agent kubernetes {
+                cloud 'kubernetes'
+            }
             enviroment {
                 tag_version = "lh${env.BUILD_ID}"
             }
@@ -36,7 +39,6 @@ pipeline{
                 sh 'sed -i "s/{{tag}}/$tag_version/g" ./k8s/api/deployment.yaml'
                 sh 'cat ./k8s/api/deployment.yaml'
                 withKubeConfig([credentialsId:'kube'
-                                clusterName: 'kubernetes'
                                ]){
                     sh './kubectl apply -f ./k8s/ -R'
                 }
