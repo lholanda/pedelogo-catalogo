@@ -112,6 +112,10 @@ lholanda/ZAXila#002
 
 5) adicionar os manifestos do projeto
 
+
+aqui IMAGEM
+***********************************************
+
 6) criar os pods, services, secrets , etc...
     no diretorio:
         cd ~/projects/jornadadevops/jornada/jenkins/app/pedelogo-catalogo
@@ -176,3 +180,26 @@ stage('Deploy Kubernetes'){
                 
             }
         }
+
+***----------------- subi na mao fora do Jenkin no kubernetes da DO
+
+k get all
+NAME                                      READY   STATUS    RESTARTS   AGE
+pod/api-deployment-68bf548875-46jvw       1/1     Running   0          3m48s
+pod/mongodb-deployment-58669bdbf9-b6tvr   1/1     Running   0          3m47s
+
+NAME                      TYPE           CLUSTER-IP       EXTERNAL-IP       PORT(S)        AGE
+service/api-service       LoadBalancer   10.245.133.32    159.203.159.107   80:32006/TCP   3m48s
+service/kubernetes        ClusterIP      10.245.0.1       <none>            443/TCP        5h45m
+service/mongodb-service   ClusterIP      10.245.128.149   <none>            27017/TCP      3m47s
+
+NAME                                 READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/api-deployment       1/1     1            1           3m48s
+deployment.apps/mongodb-deployment   1/1     1            1           3m47s
+
+NAME                                            DESIRED   CURRENT   READY   AGE
+replicaset.apps/api-deployment-68bf548875       1         1         1       3m49s
+replicaset.apps/mongodb-deployment-58669bdbf9   1         1         1       3m48s
+
+uso external IP 
+http://159.203.159.107/swagger/index.html

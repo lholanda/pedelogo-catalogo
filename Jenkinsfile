@@ -44,7 +44,7 @@ pipeline{
                 sh 'cat ./k8s/api/deployment.yaml'
                 withKubeConfig([credentialsId:'kube'
                                ]){
-                    sh './kubectl apply -f ./k8s/ -R'
+                    sh 'kubectl apply -f ./k8s/ -R'
                 }
                 
             }
