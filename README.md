@@ -22,9 +22,37 @@ Mongo__Port => Porta do MongoDB
 
 ### ------------ Configuracao do Jenkins
 
-###### DOCKER INSTALATION ########
-curl -fsSl https://get.docker.com | bash 
-usermod -aG docker jenkins
+acesso ao servidor
+ssh root@104.248.61.44 -i ~/.ssh/aula-jenkins
+
+###### DOCKER INSTALATION ######## --- JA INSTALA TUDO O QUE PRECISA PARA O DOCKER
+
+sudo apt update
+sudo curl -fsSl https://get.docker.com | bash 
+sudo usermod -aG docker 
+
+###### JAVA INSTALATION ########
+
+sudo apt update && sudo apt install openjdk-17-jre && java -version
+
+###### JENKINS INSTALATION ########
+
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+
+sudo apt-get update && sudo apt-get install jenkins
+sudo usermod -aG docker jenkins
+
+--- monitoramento 
+systemctl cat jenkins
+
+sudo systemctl status jenkins
+
+--- para inicializar o jenkins 
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+-----------------------------------------------------------
 
 1) Security -
     agents - random - para o k8s consiga funcionar 
@@ -32,7 +60,7 @@ usermod -aG docker jenkins
     dockerhub e kube
 3) Clouds
     Credentials
-    Jenkins URL http://<IP>:8080
+    Jenkins URL http://104.248.61.44:8080  ssh root@104.248.61.44 -i ~/.ssh/aula-jenkins
     Pod Label 
         key : jenkins
         value: slave
@@ -47,7 +75,20 @@ usermod -aG docker jenkins
                     working directory - apaga
                     Command to run - apaga
                     [ x ] Allocate pseudo-TTY
-4) Projeto para subir
+        SAVE
+
+4) Configurando o Kubernetes
+ DO - create a kubernetes
+ nyc1
+ fixed size
+ Node pool name : default  
+ Node plan: 24$
+
+5) Job
+PIPELINE
+git project : https://github.com/lholanda/pedelogo-catalogo.git
+
+5) Projeto para subir
     fork do projeto ou projeto que queira subir
 
     * para testar:
