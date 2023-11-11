@@ -2,12 +2,12 @@ pipeline{
     agent any
 
     stages{
+        /* CI */
         stage('Checkout Source'){
             steps {
                 git url:'https://github.com/lholanda/pedelogo-catalogo.git', branch:'master' 
             }
         }
-
         stage('Build Image'){
             steps {
                script {
@@ -15,15 +15,37 @@ pipeline{
                } 
             }
         }
-
         stage('Push Image'){
             steps {
                 script {
                       docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                      dockerapp.push('latest')
                       dockerapp.push("lh${env.BUILD_ID}")
+                      dockerapp.push('latest')
                    }
                 }
+            }
+        }
+
+        /* CD */
+        stage('Deploy Kubernetes'){
+            agent {
+                kubernetes {
+                    cloud : 'kubernetes'
+                }
+            }
+
+
+            enviroment {
+                tag_version = "lh${env.BUILD_ID}"
+            }
+            steps {
+                
+                sh 'sed -i "s/{{tag}}/$tag_version/g" ./k8s/api/deployment.yaml'
+                sh 'cat ./k8s/api/deployment.yaml'
+                withKubeConfig([credentialsld:'kube']){
+                    sh './kubectl apply -f ./k8s/ -R'
+                }
+                /*kuberneteDeploy(configs: '**/k8s/**', kubeconfigId: 'kubeconfig')*/
             }
         }
 
