@@ -45,7 +45,7 @@ pipeline{
                 withKubeConfig([credentialsld:'kube']){
                     sh './kubectl apply -f ./k8s/ -R'
                 }
-                /*kuberneteDeploy(configs: '**/k8s/**', kubeconfigId: 'kubeconfig')*/
+                
             }
         }
 
