@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-        /*
+       
         stage('Deploy Kubernetes'){
             agent {
                 kubernetes {
@@ -45,7 +45,7 @@ pipeline {
                 }
             }
         }
-        */
+        
     }       
 }
 
