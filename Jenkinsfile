@@ -3,10 +3,8 @@ pipeline{
 
     stages{
         stage('Checkout Source'){
-            stage {
-                steps {
-                   git url:'https://github.com/lholanda/pedelogo-catalogo.git', branch:'master' 
-                }
+            steps {
+                git url:'https://github.com/lholanda/pedelogo-catalogo.git', branch:'master' 
             }
         }
 
