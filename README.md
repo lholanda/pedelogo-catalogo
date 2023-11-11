@@ -87,6 +87,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 5) Job
 PIPELINE
 git project : https://github.com/lholanda/pedelogo-catalogo.git
+nao usa credencial - deixar em branco para nao dar erro
 
 5) Projeto para subir
     fork do projeto ou projeto que queira subir
