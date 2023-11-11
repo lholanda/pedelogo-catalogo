@@ -16,14 +16,6 @@ pipeline{
             }
         }
 
-        stage('entrando na Etapa de Docker Registry....'){
-            steps {
-                script {
-                    echo 'Quase lá....'
-                }
-            }
-        }
-
         stage('Push Image'){
             steps {
                 script {
