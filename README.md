@@ -146,3 +146,8 @@ stage('Deploy Kubernetes'){
             }
         }
 
+
+
+/* CD */
+
+/*kuberneteDeploy(configs: '**/k8s/**', kubeconfigId: 'kubeconfig')*/
