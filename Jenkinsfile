@@ -33,10 +33,11 @@ pipeline{
                     cloud 'kubernetes'
                 }
             }
-            
-            enviroment {
+
+            environment {
                 tag_version = "lh${env.BUILD_ID}"
             }
+            
             steps {
                 
                 sh 'sed -i "s/{{tag}}/$tag_version/g" ./k8s/api/deployment.yaml'
