@@ -1,6 +1,11 @@
 pipeline{
     agent any
 
+    environment {
+       TAG_VERSION = "v${env.BUILD_ID}.0"  /*  estava dando erro pois eu nao estava subuindo com .0 para o Deploy*/
+    }
+
+
     stages{
         /* CI */
 
@@ -12,7 +17,7 @@ pipeline{
         stage('Build Image'){
             steps {
                script {
-                    dockerapp = docker.build("lholanda/api-produto:v${env.BUILD_ID}.0",'--no-cache -f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
+                    dockerapp = docker.build("lholanda/api-produto:${TAG_VERSION}",'--no-cache -f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                } 
             }
         }
@@ -20,7 +25,7 @@ pipeline{
             steps {
                 script {
                       docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                      dockerapp.push("v${env.BUILD_ID}.0")
+                      dockerapp.push("${TAG_VERSION}")
                       dockerapp.push('latest')
                    }
                 }
@@ -35,13 +40,10 @@ pipeline{
                 }
             }
 
-            environment {
-                tag_version = "v${env.BUILD_ID}"
-            }
 
             steps {
                 
-                sh 'sed -i "s/{{tag}}/$tag_version/g" ./k8s/api/deployment.yaml'
+                sh 'sed -i "s/{{tag}}/${TAG_VERSION}/g" ./k8s/api/deployment.yaml'
                 sh 'cat ./k8s/api/deployment.yaml'
                 withKubeConfig([credentialsId:'kube'
                                ]){
