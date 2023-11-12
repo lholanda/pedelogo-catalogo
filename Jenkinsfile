@@ -18,7 +18,7 @@ pipeline{
         stage('Build Image'){
             steps {
                script {
-                    dockerapp = docker.build("lholanda/api-produto:${TAG_VERSION}",'${BUILD_IMAGE} -f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
+                    dockerapp = docker.build("lholanda/api-produto-np:${TAG_VERSION}",'${BUILD_IMAGE} -f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                } 
             }
         }
