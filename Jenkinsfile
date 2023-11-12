@@ -11,7 +11,7 @@ pipeline{
         stage('Build Image'){
             steps {
                script {
-                    dockerapp = docker.build("lholanda/lh-produto:lh${env.BUILD_ID}",'-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
+                    dockerapp = docker.build("lholanda/api-produto:v${env.BUILD_ID}.0",'-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                } 
             }
         }
@@ -19,7 +19,7 @@ pipeline{
             steps {
                 script {
                       docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                      dockerapp.push("lh${env.BUILD_ID}")
+                      dockerapp.push("v${env.BUILD_ID}.0")
                       dockerapp.push('latest')
                    }
                 }
@@ -35,7 +35,7 @@ pipeline{
             }
 
             environment {
-                tag_version = "lh${env.BUILD_ID}"
+                tag_version = "v${env.BUILD_ID}"
             }
 
             steps {
