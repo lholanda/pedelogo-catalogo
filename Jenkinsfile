@@ -3,7 +3,6 @@ pipeline{
 
     environment {
        TAG_VERSION = "v${env.BUILD_ID}.0"  /*  estava dando erro pois eu nao estava subuindo com .0 para o Deploy*/
-       IMAGE_NAME  = "lholanda//api-produto:${TAG_VERSION}"
        OPTION_BUILD_IMAGE = "--no-cache"
     }
 
@@ -43,7 +42,7 @@ pipeline{
             }
 
             steps {
-                sh 'sed -i "s/{{tag}}/${IMAGE_NAME}/g" ./k8s/api/deployment.yaml'
+                sh 'sed -i "s/{{tag}}/${TAG_VERSION}/g" ./k8s/api/deployment.yaml'
                 sh 'cat ./k8s/api/deployment.yaml'
                 withKubeConfig([credentialsId:'kube'
                                ]){
