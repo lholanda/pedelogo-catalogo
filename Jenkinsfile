@@ -3,6 +3,7 @@ pipeline{
 
     stages{
         /* CI */
+        
         stage('Checkout Source'){
             steps {
                 git url:'https://github.com/lholanda/pedelogo-catalogo.git', branch:'master' 
