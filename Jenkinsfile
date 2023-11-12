@@ -3,7 +3,8 @@ pipeline{
 
     environment {
        TAG_VERSION = "v${env.BUILD_ID}.0"  /*  estava dando erro pois eu nao estava subuindo com .0 para o Deploy*/
-       BUILD_IMAGE = "--no-cache"
+       IMAGE_NAME  = "lholanda/api-produto${TAG_VERSION}"
+       OPTION_BUILD_IMAGE = "--no-cache"
     }
 
 
@@ -18,7 +19,7 @@ pipeline{
         stage('Build Image'){
             steps {
                script {
-                    dockerapp = docker.build("lholanda/api-produto-new:${TAG_VERSION}",'${BUILD_IMAGE} -f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
+                    dockerapp = docker.build("${IMAGE_NAME}",'${OPTION_BUILD_IMAGE} -f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                } 
             }
         }
