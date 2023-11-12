@@ -203,3 +203,10 @@ replicaset.apps/mongodb-deployment-58669bdbf9   1         1         1       3m48
 
 uso external IP 
 http://159.203.159.107/swagger/index.html
+
+
+### Pipeline Result
+
+
++ docker build -t lholanda/api-produto:v42.0 -f ./src/PedeLogo.Catalogo.Api/Dockerfile .
+

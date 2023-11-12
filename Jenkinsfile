@@ -3,7 +3,7 @@ pipeline{
 
     stages{
         /* CI */
-        
+
         stage('Checkout Source'){
             steps {
                 git url:'https://github.com/lholanda/pedelogo-catalogo.git', branch:'master' 
@@ -12,7 +12,7 @@ pipeline{
         stage('Build Image'){
             steps {
                script {
-                    dockerapp = docker.build("lholanda/api-produto:v${env.BUILD_ID}.0",'-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
+                    dockerapp = docker.build("lholanda/api-produto:v${env.BUILD_ID}.0",'--no-cache -f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                } 
             }
         }
