@@ -3,6 +3,8 @@ pipeline{
 
     environment {
        TAG_VERSION = "v${env.BUILD_ID}.0"  /*  estava dando erro pois eu nao estava subuindo com .0 para o Deploy*/
+       BUILD_IMAGE = "--no-cache"
+       AGENT_NAME  = "kubernetes"
     }
 
 
@@ -17,7 +19,7 @@ pipeline{
         stage('Build Image'){
             steps {
                script {
-                    dockerapp = docker.build("lholanda/api-produto:${TAG_VERSION}",'--no-cache -f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
+                    dockerapp = docker.build("lholanda/api-produto:${TAG_VERSION}",'${BUILD_IMAGE} -f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                } 
             }
         }
@@ -36,13 +38,12 @@ pipeline{
         stage('Deploy Kubernetes'){
             agent {
                 kubernetes {
-                    cloud 'kubernetes'
+                    cloud ${AGENT_NAME}
                 }
             }
 
 
             steps {
-                
                 sh 'sed -i "s/{{tag}}/${TAG_VERSION}/g" ./k8s/api/deployment.yaml'
                 sh 'cat ./k8s/api/deployment.yaml'
                 withKubeConfig([credentialsId:'kube'
