@@ -4,7 +4,7 @@ pipeline{
     environment {
        TAG_VERSION = "v${env.BUILD_ID}.0"  /*  estava dando erro pois eu nao estava subuindo com .0 para o Deploy*/
        BUILD_IMAGE = "--no-cache"
-       AGENT_NAME  = "kubernetes"
+       AGENT_NAME  = "cloud 'kubernetes'"
     }
 
 
@@ -38,7 +38,7 @@ pipeline{
         stage('Deploy Kubernetes'){
             agent {
                 kubernetes {
-                    cloud '"${AGENT_NAME}"'
+                    "${AGENT_NAME}"
                 }
             }
 
