@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: lholanda/api-produto:{{tag}} # se rodar sem o jenkins deve trocar esta tag- parametrizar
+        image: {{tag}} # se rodar sem o jenkins deve trocar esta tag- parametrizar
         resources:
           limits:
             memory: "128Mi"

@@ -43,7 +43,7 @@ pipeline{
             }
 
             steps {
-                sh 'sed -i "s/{{tag}}/${TAG_VERSION}/g" ./k8s/api/deployment.yaml'
+                sh 'sed -i "s/{{tag}}/${IMAGE_NAME}/g" ./k8s/api/deployment.yaml'
                 sh 'cat ./k8s/api/deployment.yaml'
                 withKubeConfig([credentialsId:'kube'
                                ]){
