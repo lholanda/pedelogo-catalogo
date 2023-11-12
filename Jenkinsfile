@@ -18,7 +18,7 @@ pipeline{
         stage('Build Image'){
             steps {
                script {
-                    dockerapp = docker.build("lholanda/api-produto-np:${TAG_VERSION}",'${BUILD_IMAGE} -f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
+                    dockerapp = docker.build("lholanda/api-produto-new:${TAG_VERSION}",'${BUILD_IMAGE} -f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                } 
             }
         }
@@ -40,7 +40,6 @@ pipeline{
                     cloud 'kubernetes'
                 }
             }
-
 
             steps {
                 sh 'sed -i "s/{{tag}}/${TAG_VERSION}/g" ./k8s/api/deployment.yaml'

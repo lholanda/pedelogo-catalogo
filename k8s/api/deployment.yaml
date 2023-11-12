@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: api-deployment
 spec:
+  replicas: 4
   selector:
     matchLabels:
       app: api
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: lholanda/api-produto:{{tag}} # se rodar sem o jenkins deve trocar esta tag
+        image: lholanda/api-produto:{{tag}} # se rodar sem o jenkins deve trocar esta tag- parametrizar
         resources:
           limits:
             memory: "128Mi"
